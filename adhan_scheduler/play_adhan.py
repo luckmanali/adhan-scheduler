@@ -2,10 +2,10 @@
 Description: Play the Adhan through A Sonos speaker(s) or through a connected wired/Bluetooth speaker.
 
 Pre-requisites:
- 1. If you are using this script as a stand alone program make sure soco is installed: pip install soco
- 2. You are not using a Sonos speaker then a cli media player is required. We currently support:
-    - omxplayer (recomended for a rasberry pi setup)    --> sudo apt install omxplayer -y
-    - mplayer (recommended for linux/mac systems)       --> sudo apt install mplayer -y
+ 1. If you are using this script as a stand alone program make sure soco is installed --> pip install soco
+ 2. You are not using a Sonos speaker then a cli media player is required:
+    - omxplayer (recommended for a rasberry pi setup)       --> sudo apt install omxplayer -y
+    - mplayer (recommended for linux/mac systems)           --> sudo apt install mplayer -y
 
 Usage:
 To run this program you need to call it while passing in the name of the Sonos speaker as the first argument.
@@ -19,7 +19,7 @@ Arguments:
     --help: prints usage and quits the program
 """
 
-import argparse
+from argparse import ArgumentParser
 from random import choice
 from subprocess import getoutput, run
 import sys
@@ -30,7 +30,7 @@ from adhan_scheduler.config import ADHANS
 def parse_args():
     """Parse the command line arguments"""
     description = "Play a URI through a Sonos or wired/Bluetooth connected speaker"
-    parser = argparse.ArgumentParser(description=description)
+    parser = ArgumentParser(description=description)
     parser.add_argument("speaker",
                         type=str,
                         help="The name of the Sonos speaker/zone you want to use. "
@@ -44,7 +44,7 @@ def parse_args():
                         nargs='?',
                         default=choice(ADHANS),
                         help='To change the Adhan pass in a custom URI '
-                             '(Default: A random Adhan URI will be selected from the available list in the config)')
+                             '(default: a random URI will be selected from the available list in the config)')
     return parser.parse_args()
 
 
