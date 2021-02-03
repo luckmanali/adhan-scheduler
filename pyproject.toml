@@ -8,6 +8,7 @@ authors = ["Luckman Ali <luckman.ali@live.com>"]
 python = "^3.8"
 soco = "^0.21.1"
 requests = "^2.25.1"
+python-crontab = "^2.5.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
