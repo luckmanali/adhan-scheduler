@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import pytest
-from scripts.get_prayer_times import GetPrayerTimes
+from adhan_scheduler.get_prayer_times import GetPrayerTimes
 
 
 @pytest.fixture()
