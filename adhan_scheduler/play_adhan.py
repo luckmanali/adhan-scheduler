@@ -99,11 +99,14 @@ def play_local(args):
     # Set the target volume
     run(["amixer", "-D", "pulse", "sset", "Master", f"{args.volume}%"], check=True)
 
+    process = None
+
     # Play Adhan
     if 'omxplayer' in player:
-        run([player, "-o", "alsa", args.uri, ">/dev/null 2>&1"], check=True)
+        process = run([player, "-o", "alsa", args.uri, ">/dev/null 2>&1"], check=True)
     if 'mplayer' in player:
-        run([player, args.uri], check=True)
+        process = run([player, args.uri], check=True)
+    return process.returncode
 
 
 def main():
