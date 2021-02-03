@@ -1,6 +1,6 @@
 from random import choice
 import pytest
-from scripts.play_adhan import get_zone, get_available_zones, play_adhan
+from adhan_scheduler.play_adhan import get_zone, get_available_zones, play_adhan, play_local
 
 
 @pytest.mark.skipif(not get_available_zones(), reason="Sonos speakers not available to test")
@@ -18,12 +18,33 @@ def test_get_invalid_speaker():
 
 
 @pytest.mark.skipif(not get_available_zones(), reason="Sonos speakers not available to test")
-def test_play_adhan():
+def test_play_on_sonos():
     zones = get_available_zones()
     player = choice(zones)
     zone = get_zone(player)
     play_adhan(
         zone,
-        track_uri="https://media.sd.ma/assabile/adhan_3435370/a4ab138564ce.mp3",
+        track_uri="https://soundbible.com/mp3/Chamber%20Decompressing-SoundBible.com-1075404493.mp3",
         volume=10
     )
+
+
+def test_play_with_mplayer():
+    class Object:
+        speaker = 'mplayer'
+        uri = "https://soundbible.com/mp3/Chamber%20Decompressing-SoundBible.com-1075404493.mp3"
+        volume = 10
+
+    assert play_local(Object()) == 0
+
+
+def test_play_local_not_installed():
+    class Object:
+        speaker = 'omxplayer'
+        uri = "https://media.sd.ma/assabile/adhan_3435370/a4ab138564ce.mp3"
+        volume = 10
+
+    obj = Object()
+    with pytest.raises(RuntimeError) as exec_info:
+        play_local(obj)
+        assert str(exec_info.value) == f"{obj.speaker} is not installed"
