@@ -1,9 +1,9 @@
 """
-This program will schedule a cron job at the beginning time for each prayer.
-Each cron job will be programmed to play the Adhan either directly through your
+This program is designed to calculate prayer times and then schedule cron jobs
+to play the Adhan. Each cron job will be programmed to play the Adhan either through your
 Sonos speaker(s) or through a generic wired or Bluetooth speaker.
 
-Prerequisites (if you do not want to use Sonos):
+Prerequisites (if you do not want to use Sonos speaker(s)):
 * A cli media player:
     - omxplayer (recommended for a rasberry pi setup)       --> sudo apt install omxplayer -y
     - mplayer (recommended for linux/mac systems)           --> sudo apt install mplayer -y
@@ -11,7 +11,7 @@ Prerequisites (if you do not want to use Sonos):
 Usage:
 To run this program you need to call it while passing in the name of the Sonos speaker
 as the first argument. e.g. "main.py <sono-speaker-name>"
-If you want to use a Bluetooth or wired speaker pass in omxplayer or mplayer as the
+If you want to use a Bluetooth or wired speaker pass in the name of your cli media player as the
 first argument instead. e.g. "main.py omxplayer" or "main.py mplayer"
 
 All other arguments are optional.
@@ -34,8 +34,8 @@ def parse_args():
     parser = ArgumentParser(description=description)
     parser.add_argument("speaker",
                         type=str,
-                        help="The name of the Sonos speaker/zone you want to use. "
-                             "If you want to use a Bluetooth or wired speaker pass in omxplayer or mplayer")
+                        help="The name of the Sonos speaker/zone you want to use. If you want to use a "
+                             "Bluetooth or wired speaker pass in the name of your cli media player")
     parser.add_argument('-v', '--volume',
                         nargs='?',
                         default=60,
@@ -55,18 +55,18 @@ def main():
     print_banner('Adhan Scheduler')
     args = parse_args()
 
-    salah = GetPrayerTimes()  # get prayer times for current date and location
-    salah.set_fajr_x_mins_before_sunrise(45)  # reset fajr prayer to 45 mins before sunrise
+    api = GetPrayerTimes()  # get prayer times for current date and location
+    api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
 
     # set cronjob for all prayers
     ScheduleAdhan(
-        prayer_times=salah.prayer_times,
+        prayer_times=api.prayer_times,
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {args.volume}'
     )
 
     # override cronjob for fajr prayer with the volume lowered to half
     ScheduleAdhan(
-        prayer_times=salah.get_prayer_time('fajr'),
+        prayer_times=api.get_prayer_time('fajr'),
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
     )
 

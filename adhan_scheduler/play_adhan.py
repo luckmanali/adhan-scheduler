@@ -33,8 +33,8 @@ def parse_args():
     parser = ArgumentParser(description=description)
     parser.add_argument("speaker",
                         type=str,
-                        help="The name of the Sonos speaker/zone you want to use. "
-                             "If you want to use a Bluetooth or wired speaker pass in omxplayer or mplayer")
+                        help="The name of the Sonos speaker/zone you want to use. If you want to use a "
+                             "Bluetooth or wired speaker pass in the name of your cli media player")
     parser.add_argument('-v', '--volume',
                         nargs='?',
                         default=60,
@@ -85,7 +85,7 @@ def get_zone(name: str) -> soco:
 def play_adhan(zone: soco, track_uri: str, volume: int):
     """Play the Adhan through a Sonos speaker"""
     zone.volume = volume  # Set volume
-    zone.play_uri(track_uri)  # Play Track at URI
+    zone.play_uri(track_uri, title="Adhan")  # Play Track at URI
 
 
 def play_local(args):
