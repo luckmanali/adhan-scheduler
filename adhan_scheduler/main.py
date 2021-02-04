@@ -24,7 +24,7 @@ Arguments:
 
 from os import getcwd
 from argparse import ArgumentParser
-from schedule_adhan import ScheduleAdhan
+from scheduler import Scheduler
 from get_prayer_times import GetPrayerTimes
 
 
@@ -59,14 +59,14 @@ def main():
     api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
 
     # set cronjob for all prayers
-    ScheduleAdhan(
-        prayer_times=api.prayer_times,
+    Scheduler(
+        times=api.prayer_times,
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {args.volume}'
     )
 
     # override cronjob for fajr prayer with the volume lowered to half
-    ScheduleAdhan(
-        prayer_times=api.get_prayer_time('fajr'),
+    Scheduler(
+        times=api.get_prayer_time('fajr'),
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
     )
 

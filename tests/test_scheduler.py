@@ -1,8 +1,8 @@
-from adhan_scheduler.schedule_adhan import ScheduleAdhan
+from adhan_scheduler.scheduler import Scheduler
 
 
 def test_schedule_single_job():
-    with ScheduleAdhan(prayer_times={"Asr": "14:30"}, command='echo hello_world') as cron:
+    with Scheduler(times={"Asr": "14:30"}, command='echo hello_world') as cron:
         assert cron.get_job("Asr") == {
             'time': '30 14 * * *',
             'command': 'echo hello_world',
@@ -14,7 +14,7 @@ def test_schedule_single_job():
 
 
 def test_schedule_multiple_jobs():
-    with ScheduleAdhan(prayer_times={"Maghrib": "17:29", "Isha": "19:00"}, command='echo hello_world') as cron:
+    with Scheduler(times={"Maghrib": "17:29", "Isha": "19:00"}, command='echo hello_world') as cron:
         assert cron.get_job("Maghrib") == {
             'time': '29 17 * * *',
             'command': 'echo hello_world',
