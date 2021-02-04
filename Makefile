@@ -10,6 +10,12 @@ list:
 install:
 	poetry install
 
+clean:
+	rm -Rf dist
+
+dist: clean
+	poetry build
+
 lint:
 	$(activate) pylint --output-format=parseable --rcfile=pylint.rc adhan_scheduler/* tests/*
 
