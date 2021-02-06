@@ -7,11 +7,12 @@ authors = ["Luckman Ali <luckman.ali@live.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 soco = "^0.21.1"
-requests = "^2.25.1"
 python-crontab = "^2.5.1"
+aiohttp = "^3.7.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+pytest-asyncio = "^0.14.0"
 pylint = "^2.6.0"
 
 [build-system]

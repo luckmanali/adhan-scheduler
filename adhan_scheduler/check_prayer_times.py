@@ -1,18 +1,19 @@
 """
 A quick script to get the prayer times for a given set of arguments.
 This was created for configuration and testing purposes to help test the
-offset required to match your required settings / local mosque.
+settings/offset required to match your required settings / local mosque.
 """
 
 
+import asyncio
 from argparse import ArgumentParser
 from typing import List
-from get_prayer_times import GetPrayerTimes
+from prayer_times import PrayerTimes
 
 
 def parse_args():
     """Parse the command line arguments"""
-    description = "Schedule the Adhan"
+    description = "Check prayer times"
     parser = ArgumentParser(description=description)
     parser.add_argument("school", type=int)
     parser.add_argument("method", type=int)
@@ -21,16 +22,16 @@ def parse_args():
     return parser.parse_args()
 
 
-def check_prayer_times(school: int, method: int, offset: List[int]):
-    _api = GetPrayerTimes(school, method, offset)
-    return _api.get_prayer_times()
+async def check_prayer_times(school: int, method: int, offset: List[int]):
+    _api = PrayerTimes(school, method, offset)
+    return await _api.get_times()
 
 
-def main():
+async def main():
     args = parse_args()
-    prayer_times = check_prayer_times(args.school, args.method, args.offset)
+    prayer_times = await check_prayer_times(args.school, args.method, args.offset)
     print(prayer_times)
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())

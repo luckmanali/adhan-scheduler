@@ -23,9 +23,10 @@ Arguments:
 """
 
 from os import getcwd
+import asyncio
 from argparse import ArgumentParser
 from scheduler import Scheduler
-from get_prayer_times import GetPrayerTimes
+from prayer_times import PrayerTimes
 
 
 def parse_args():
@@ -51,25 +52,25 @@ def print_banner(title: str) -> print:
     print('*' * len(title))
 
 
-def main():
+async def main():
     print_banner('Adhan Scheduler')
     args = parse_args()
 
-    api = GetPrayerTimes()  # get prayer times for current date and location
-    api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
+    api = PrayerTimes()  # get prayer times for current date and location
+    await api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
 
     # set cronjob for all prayers
     Scheduler(
-        times=api.prayer_times,
+        times=await api.get_times(),
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {args.volume}'
     )
 
     # override cronjob for fajr prayer with the volume lowered to half
     Scheduler(
-        times=api.get_prayer_time('fajr'),
+        times=await api.get_times('fajr'),
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
     )
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
