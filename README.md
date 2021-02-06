@@ -196,7 +196,7 @@ print(prayer_times)
 ```
 
 ### set_fajr_x_mins_before_sunrise()
-You can update the fajr a number of minuets before sunrise. (If you want a late fajr alarm instead of a super early one)
+You can update fajr 'x' number of minuets before sunrise. (If you want a late fajr alarm instead of a super early one)
 
 | Parameters    | Description                                                             | Type  | Required  |  Default  |
 | ------------- |:-----------------------------------------------------------------------:|:-----:|:---------:|:---------:|
@@ -292,6 +292,7 @@ Cron job for 15:07 created successfully
 Cron job for 17:07 created successfully
 Cron job for 18:59 created successfully
 Cron job for 06:58 created successfully
+Cron job for 00:00 created successfully
 
 Process finished with exit code 0
 
@@ -301,6 +302,7 @@ $ crontab -l
 7 17 * * * python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/play_adhan.py Adhan --volume 70 # Maghrib
 59 18 * * * python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/play_adhan.py Adhan --volume 70 # Isha
 58 6 * * * python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/play_adhan.py Adhan --volume 35 # Fajr
+@daily python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/main.py Adhan --volume 60' # Adhan Scheduler
 ```
 
 example of main()
