@@ -299,7 +299,7 @@ $ crontab -l
 7 17 * * * python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/play_adhan.py Adhan --volume 70 # Maghrib
 59 18 * * * python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/play_adhan.py Adhan --volume 70 # Isha
 58 6 * * * python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/play_adhan.py Adhan --volume 35 # Fajr
-@daily python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/main.py Adhan --volume 60' # Adhan Scheduler
+@daily python /home/luckmanali/_dev/adhan-scheduler/adhan_scheduler/main.py Adhan --volume 70' # Adhan Scheduler
 ```
 
 example of main()
