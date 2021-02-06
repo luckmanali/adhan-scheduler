@@ -15,8 +15,8 @@ Sonos speaker(s) or through a generic wired or Bluetooth speaker.
 $ make install
 ```
 
-### Windows users
-Please use the docker image [adhan-scheduler]() which can be found on dockerhub.
+### Windows users (coming soon)
+A docker images will be available soon [adhan-scheduler]().
 
 ## Usage
 #### NOTE: You only need to run this program once. All future executions will be done automatically. 
@@ -119,13 +119,10 @@ OFFSET = None
 * Prayer times can be tuned and customized to match your local mosque / requirements.
 * Uses crontab to schedule the adhan (removes automatically).
 * Plays static or a random adhan from a configurable list.
-* Broadcast customizable announcements.
+* Broadcast customizable announcements (coming soon).
   * For example, it can be used as a reminder 20 minutes before the next prayer starts.
   * This feature must be turned on. (it is disabled by default)
 * Each Adhan can have a specified volume level e.g. Fajr adhan can be to 30% while others are at 60%.
-
-### Notifications:
-* Notifications
 
 ## PrayerTimes()
 
