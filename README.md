@@ -322,9 +322,16 @@ scheduler = Scheduler(
 
 # override cronjob for fajr prayer with the volume lowered to half
 scheduler.schedule_job(
-    name='Fajr', 
-    time=scheduler.get_job('Fajr')['time'], 
+    name='Fajr',
+    time=scheduler.get_job('Fajr')['time'],
     command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
+)
+
+# Schedule this script to rerun everyday at midnight
+scheduler.schedule_job(
+    name="Adhan Scheduler",
+    time="00:00",
+    command=f"python {getcwd()}/main.py {args.speaker} --volume {int(args.volume)}'"
 )
 ```
 
