@@ -20,4 +20,4 @@ lint:
 	$(activate) pylint --output-format=parseable --rcfile=pylint.rc adhan_scheduler/* tests/*
 
 test:
-	$(activate) pytest -v
+	$(activate) pytest -v --disable-warnings

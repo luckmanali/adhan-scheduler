@@ -41,9 +41,16 @@ class Scheduler:
                 break
         self.cron.write()
 
-    def schedule_job(self, name: str, time: str) -> print:
+    def schedule_job(self, name: str, time: str, command: str = None) -> print:
+        if not command:
+            # Get default
+            command = self.command
+
+        # Remove job if it already exists
+        self.remove_job(name)
+
         cron_time = self._convert_into_cron_syntax(time)
-        job = self.cron.new(command=self.command,
+        job = self.cron.new(command=command,
                             comment=name.title())
 
         job.setall(cron_time)
@@ -57,5 +64,5 @@ class Scheduler:
     def get_job(self, name: str) -> dict or None:
         for job in self.cron.crons:
             if job.comment == name.title().strip():
-                return {"time": str(job.slices), "command": job.command, "comment": job.comment}
+                return {"name": job.comment, "time": str(job.slices), "command": job.command}
         return None

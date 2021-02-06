@@ -60,14 +60,15 @@ async def main():
     await api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
 
     # set cronjob for all prayers
-    Scheduler(
+    scheduler = Scheduler(
         times=await api.get_times(),
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {args.volume}'
     )
 
     # override cronjob for fajr prayer with the volume lowered to half
-    Scheduler(
-        times=await api.get_times('fajr'),
+    scheduler.schedule_job(
+        name='Fajr',
+        time=scheduler.get_job('Fajr')['time'],
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
     )
 
