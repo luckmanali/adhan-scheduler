@@ -28,6 +28,12 @@ class Scheduler:
         _min = time[3:5]
         return f"{_min} {_hour} * * *"
 
+    @staticmethod
+    def convert_cron_into_str(cron_time: str) -> str:
+        _time = cron_time.split(' ')
+        time = f"{_time[1]}:{_time[0]}"
+        return time
+
     def _remove_all_jobs(self):
         for job in self.cron:
             if job.comment in list(self.times.keys()):
@@ -49,11 +55,13 @@ class Scheduler:
         # Remove job if it already exists
         self.remove_job(name)
 
-        cron_time = self._convert_into_cron_syntax(time)
+        if "*" not in time:
+            time = self._convert_into_cron_syntax(time)
+
         job = self.cron.new(command=command,
                             comment=name.title())
 
-        job.setall(cron_time)
+        job.setall(time)
         self.cron.write()
         print(f'Cron job for {time.title()} created successfully')
 

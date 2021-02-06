@@ -72,6 +72,13 @@ async def main():
         command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
     )
 
+    # Schedule this script to rerun everyday at midnight
+    scheduler.schedule_job(
+        name="Adhan Scheduler",
+        time="00:00",
+        command=f"python {getcwd()}/main.py {args.speaker} --volume {int(args.volume)}'"
+    )
+
 
 if __name__ == '__main__':
     asyncio.run(main())
