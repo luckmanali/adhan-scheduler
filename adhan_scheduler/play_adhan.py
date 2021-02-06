@@ -102,9 +102,9 @@ def play_local(args) -> int:
     process = None
 
     # Play Adhan
-    if 'omxplayer' in player:
+    if player == 'omxplayer':
         process = run([player, "-o", "alsa", args.uri, ">/dev/null 2>&1"], check=True)
-    if 'mplayer' in player:
+    else:
         process = run([player, args.uri], check=True)
     return process.returncode
 
