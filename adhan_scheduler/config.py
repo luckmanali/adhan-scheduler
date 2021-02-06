@@ -7,6 +7,12 @@ ADHANS = [
     "https://github.com/luckmanali/adhan-collection/blob/main/Masjid%20Al-Haram.mp3?raw=true",
 ]
 
+# Supported CLI Media Players
+CLI_MEDIA_PLAYERS = {
+    'mplayer',
+    'omxplayer'
+}
+
 
 # 0 for Shafi.
 # 1 for Hanafi.

@@ -24,7 +24,7 @@ from random import choice
 from subprocess import getoutput, run
 import sys
 import soco
-from adhan_scheduler.config import ADHANS
+from adhan_scheduler.config import ADHANS, CLI_MEDIA_PLAYERS
 
 
 def parse_args():
@@ -88,7 +88,7 @@ def play_adhan(zone: soco, track_uri: str, volume: int):
     zone.play_uri(track_uri, title="Adhan")  # Play Track at URI
 
 
-def play_local(args):
+def play_local(args) -> int:
     """Play the Adhan through the cli media player"""
     # Get requested player
     player = getoutput(f'which {args.speaker}')
@@ -121,7 +121,7 @@ def main():
         " Track: {args.uri}".format(args=args)
     )
 
-    if "omxplayer" in args.speaker or "mplayer" in args.speaker:
+    if args.speaker in CLI_MEDIA_PLAYERS:
         play_local(args)
         sys.exit(0)
 

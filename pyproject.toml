@@ -2,7 +2,7 @@
 name = "adhan-scheduler"
 version = "0.1.0"
 description = ""
-authors = ["Luckman Ali <luckman.ali@live.com>"]
+authors = ["Luckman Ali"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
