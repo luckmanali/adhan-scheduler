@@ -26,6 +26,6 @@ jobs:
 
       - name: Push image
         run: |
-          docker adhan-scheduler tag luckmanali/adhan-scheduler:latest
+          docker tag adhan-scheduler luckmanali/adhan-scheduler:latest
           echo $(docker images) ends here
           docker push luckmanali/adhan-scheduler:latest
