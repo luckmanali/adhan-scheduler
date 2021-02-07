@@ -7,10 +7,15 @@ Sonos speaker(s) or through a generic wired or Bluetooth speaker.
 
 ### Requirements
 * [python3.8+](https://www.python.org/)
-* [poetry](https://github.com/python-poetry/poetry)
+* [poetry](https://github.com/python-poetry/poetry) `(optional)`
 * cli media player `(optional)`
 
 ### Installation
+```bash
+$ pip install .
+```
+
+### Development install
 ```bash
 $ make install
 ```
