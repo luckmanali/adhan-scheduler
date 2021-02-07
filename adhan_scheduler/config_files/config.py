@@ -1,7 +1,7 @@
 """
 Configuration for adhan-scheduler
 """
-from adhan_scheduler.environments import env_bool, env_int, ENV
+from adhan_scheduler.config_files.environments import env_bool, env_int, ENV
 
 
 ADHANS = [

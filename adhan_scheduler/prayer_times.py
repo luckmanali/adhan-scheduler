@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from typing import List
 from aiohttp import ClientSession
-from adhan_scheduler import config
+from adhan_scheduler.config_files import config
 
 
 class PrayerTimes:
