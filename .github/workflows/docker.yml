@@ -16,10 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Login to Dockerhub
-        run: |
-          echo "${{ secrets.DOCKER_PASS }}" | docker login -u luckmanali --password-stdin
-
       - name: Build image
         run: |
           docker build -t adhan-scheduler .
@@ -30,4 +26,5 @@ jobs:
 
       - name: Push image
         run: |
+          echo "${{ secrets.DOCKER_PASS }}" | docker login -u luckmanali --password-stdin
           docker push luckmanali/adhan-scheduler:latest
