@@ -1,0 +1,50 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches:
+    - master
+jobs:
+  test:
+    name: ${{ matrix.lang }} tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        lang: [Python]
+        command: [sudo apt install mplayer, brew install mplayer]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: upgrade pip and install poetry
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+
+    - name: cache packages
+      uses: actions/cache@v1
+      with:
+          path: ~/.venv
+          key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
+
+    - name: install dependencies
+      run: |
+        make install
+    
+    - name: install cli mediaplayer
+      run: |
+        ${{ matrix.command }}
+
+    - name: check lint
+      run: |
+        make lint
+
+    - name: run tests
+      run: |
+        make test
