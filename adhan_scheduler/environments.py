@@ -1,7 +1,6 @@
 from os import environ
 
 
-# Configure Test Environment
 def get_env(string):
     try:
         return environ[string]
@@ -15,7 +14,13 @@ def env_str(variable, default):
     return default
 
 
-# Configure Test Environment
+def env_int(variable, default):
+    try:
+        return int(env_str(variable, default))
+    except ValueError:
+        return default
+
+
 def env_bool(variable, default):
     value = env_str(variable, default)
     if value is None:
@@ -25,8 +30,11 @@ def env_bool(variable, default):
     return value
 
 
+# Configure Environments
 ENV = {
-    'remote': {
-        'sudo': get_env('SUDO'),
+    'prayer_times': {
+        'school': get_env('SCHOOL'),
+        'method': get_env('METHOD'),
+        'offset': get_env('OFFSET'),
     }
 }

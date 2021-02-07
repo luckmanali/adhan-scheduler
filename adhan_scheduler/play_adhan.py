@@ -21,10 +21,10 @@ Arguments:
 
 from argparse import ArgumentParser
 from random import choice
-from subprocess import getoutput, run
+from subprocess import getoutput, run, CalledProcessError
 import sys
 import soco
-from adhan_scheduler.config import ADHANS, CLI_MEDIA_PLAYERS, SUDO
+from adhan_scheduler.config import ADHANS, CLI_MEDIA_PLAYERS
 
 
 def parse_args():
@@ -96,18 +96,18 @@ def play_local(args) -> int:
     if player == "":
         raise RuntimeError(f"{player} is not installed")
 
-    volume_command = ["sudo", "amixer", "-c", 1, "sset", "Master", f"{args.volume}%"] if SUDO \
-        else ["amixer", "-c", 1, "sset", "Master", f"{args.volume}%"]
-
     # Set the target volume
-    run(volume_command, check=True)
+    try:
+        run(["amixer", "sset", "Master", f"{args.volume}%"], check=True)
+    except CalledProcessError:
+        # Sound card might be on card 1?..
+        run(["amixer", "-c", "1", "sset", "Master", f"{args.volume}%"], check=True)
 
     # Play Adhan
     if player == 'omxplayer':
         process = run([player, "-o", "alsa", args.uri, ">/dev/null 2>&1"], check=True)
     else:
-        play_command = ["sudo", player, args.uri] if SUDO else [player, args.uri]
-        process = run(play_command, check=True)
+        process = run([player, args.uri], check=True)
     return process.returncode
 
 
