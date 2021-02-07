@@ -3,7 +3,7 @@ on:
   pull_request:
 
 jobs:
-  docker-publish:
+  docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
