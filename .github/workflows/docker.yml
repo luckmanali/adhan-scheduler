@@ -4,22 +4,22 @@ on:
   push:
     branches:
     - master
+    paths:
+      - "*"
+      - "!README.md"
+      - "!tests/*"
+      - "!Makefile"
 jobs:
   docker:
-    name: Build and publish docker image
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag adhan-scheduler
-
-      - name: Log into registry
-        run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-
-      - name: Push image
-      - run: |
-          IMAGE=${{ github.repository }}
-          docker tag adhan-scheduler $IMAGE
-          docker push $IMAGE:latest
+      - name: Build & push image
+        uses: docker/build-push-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+          repository: ${{ github.repository }}
+          tags: latest, ${{ github.run_number }}
