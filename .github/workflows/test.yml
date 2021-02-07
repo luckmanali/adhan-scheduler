@@ -45,5 +45,3 @@ jobs:
     - name: run tests
       run: |
         make test
-        env:
-          SUDO: True
