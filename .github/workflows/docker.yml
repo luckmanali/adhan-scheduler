@@ -17,10 +17,6 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag adhan-scheduler
 
-  docker-push:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - name: Log into registry
         run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
 
