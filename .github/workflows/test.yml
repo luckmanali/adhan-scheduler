@@ -34,7 +34,8 @@ jobs:
     
     - name: install amixer & mplayer
       run: |
-        sudo apt install alsa-utils
+        sudo apt install libasound2-plugin-equal
+        amixer -D equal
         sudo apt install mplayer
 
     - name: check lint
