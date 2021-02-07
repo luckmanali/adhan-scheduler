@@ -17,12 +17,9 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: update apt
-      run: |
-        sudo apt update
-
     - name: install amixer & mplayer
       run: |
+        sudo apt update
         sudo apt install alsa-utils
         sudo apt install mplayer
 

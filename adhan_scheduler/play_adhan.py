@@ -88,6 +88,15 @@ def play_adhan(zone: soco, track_uri: str, volume: int):
     zone.play_uri(track_uri, title="Adhan")  # Play Track at URI
 
 
+def is_amixer_working():
+    """Temp function for pipeline testing"""
+    try:
+        run(["amixer", "sset", "Master", "10"], check=True)
+        return True
+    except CalledProcessError:
+        return False
+
+
 def play_local(args) -> int:
     """Play the Adhan through the cli media player"""
     # Get requested player
@@ -97,11 +106,7 @@ def play_local(args) -> int:
         raise RuntimeError(f"{player} is not installed")
 
     # Set the target volume
-    try:
-        run(["amixer", "sset", "Master", f"{args.volume}%"], check=True)
-    except CalledProcessError:
-        # Sound card might be on card 1?..
-        run(["amixer", "-c", "1", "sset", "Master", f"{args.volume}%"], check=True)
+    run(["amixer", "sset", "Master", f"{args.volume}%"], check=True)
 
     # Play Adhan
     if player == 'omxplayer':

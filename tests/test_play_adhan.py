@@ -1,6 +1,6 @@
 from random import choice
 import pytest
-from adhan_scheduler.play_adhan import get_zone, get_available_zones, play_adhan, play_local
+from adhan_scheduler.play_adhan import get_zone, get_available_zones, play_adhan, play_local, is_amixer_working
 
 
 @pytest.mark.skipif(not get_available_zones(), reason="Sonos speakers not available to test")
@@ -29,6 +29,8 @@ def test_play_on_sonos():
     )
 
 
+@pytest.mark.skipif(not is_amixer_working(),
+                    reason="Cant seem to get amixer working in the pipeline (missing soundcard)?")
 def test_play_with_mplayer():
     class Object:
         speaker = 'mplayer'
