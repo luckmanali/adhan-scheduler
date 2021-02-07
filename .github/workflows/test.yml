@@ -17,6 +17,18 @@ jobs:
       with:
         python-version: '3.8'
 
+    - name: apt update
+      run: |
+        sudo apt update
+
+    - name: install amixer
+      run: |
+        sudo apt install alsa-utils
+
+    - name: install mplayer
+      run: |
+        sudo apt install mplayer
+
     - name: upgrade pip and install poetry
       run: |
         python -m pip install --upgrade pip
@@ -31,12 +43,6 @@ jobs:
     - name: install dependencies
       run: |
         make install
-    
-    - name: install amixer & mplayer
-      run: |
-        sudo apt install libasound2-plugin-equal
-        amixer -D equal
-        sudo apt install mplayer
 
     - name: check lint
       run: |
