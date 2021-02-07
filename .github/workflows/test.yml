@@ -32,8 +32,9 @@ jobs:
       run: |
         make install
     
-    - name: install mplayer
+    - name: install amixer & ammplayer
       run: |
+        sudo apt install alsa-utils
         sudo apt install mplayer
 
     - name: check lint
