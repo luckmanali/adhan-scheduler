@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           push: true
-          tags: ${{ github.repository }}:latest
+          tags: luckmanali/adhan-scheduler:latest
