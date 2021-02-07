@@ -12,7 +12,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         lang: [Python]
-        command: [sudo apt install mplayer, brew install mplayer]
+        command: [brew install mplayer, apt install mplayer]
 
     steps:
     - uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
       run: |
         make install
     
-    - name: install cli mediaplayer
+    - name: install mplayer
       run: |
         ${{ matrix.command }}
 
