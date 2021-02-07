@@ -1,31 +1,22 @@
 name: Docker
-
 on:
   pull_request:
   push:
-    # Publish `master` as Docker `latest` image.
     branches:
-      - master
-
-    # Publish `v1.2.3` tags as releases.
+    - master
     tags:
       - v*
-
-env:
-  IMAGE_NAME: adhan-scheduler
-
 jobs:
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file Dockerfile --tag adhan-scheduler
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
