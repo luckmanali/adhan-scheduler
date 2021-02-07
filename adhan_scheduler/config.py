@@ -1,7 +1,7 @@
 """
 Configuration for adhan-scheduler
 """
-from adhan_scheduler.environments import env_bool, ENV
+from adhan_scheduler.environments import env_bool, env_int, ENV
 
 
 ADHANS = [
@@ -18,7 +18,7 @@ CLI_MEDIA_PLAYERS = {
 
 # 0 for Shafi.
 # 1 for Hanafi.
-SCHOOL = 1
+SCHOOL = env_int(ENV['prayer_times']['school'], 1)
 
 
 """
@@ -40,14 +40,10 @@ The following calculation methods are supported:
 
 For more details please visit: https://aladhan.com/calculation-methods
 """
-METHOD = 1
+METHOD = env_int(ENV['prayer_times']['method'], 1)
 
 
 # You can tune the results to match your local mosque using the OFFSET variable.
 # Index order: "Fajr, Zhuhr, Asr, Maghrib, Isha"
 # Example: OFFSET = [-45, 0, 4, 0, -29]
-OFFSET = None
-
-
-# If sudo is required by amixer and your cli player
-SUDO = env_bool(ENV['remote']['sudo'], False)
+OFFSET = env_bool(ENV['prayer_times']['offset'], None)

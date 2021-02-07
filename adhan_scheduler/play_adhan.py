@@ -21,10 +21,10 @@ Arguments:
 
 from argparse import ArgumentParser
 from random import choice
-from subprocess import getoutput, run
+from subprocess import getoutput, run, CalledProcessError
 import sys
 import soco
-from adhan_scheduler.config import ADHANS, CLI_MEDIA_PLAYERS, SUDO
+from adhan_scheduler.config import ADHANS, CLI_MEDIA_PLAYERS
 
 
 def parse_args():
@@ -88,6 +88,15 @@ def play_adhan(zone: soco, track_uri: str, volume: int):
     zone.play_uri(track_uri, title="Adhan")  # Play Track at URI
 
 
+def is_amixer_working():
+    """Temp function for pipeline testing"""
+    try:
+        run(["amixer", "sset", "Master", "10"], check=True)
+        return True
+    except CalledProcessError:
+        return False
+
+
 def play_local(args) -> int:
     """Play the Adhan through the cli media player"""
     # Get requested player
@@ -96,18 +105,14 @@ def play_local(args) -> int:
     if player == "":
         raise RuntimeError(f"{player} is not installed")
 
-    volume_command = ["sudo", "amixer", "-D", "pulse", "sset", "Master", f"{args.volume}%"] if SUDO \
-        else ["amixer", "-D", "pulse", "sset", "Master", f"{args.volume}%"]
-
     # Set the target volume
-    run(volume_command, check=True)
+    run(["amixer", "sset", "Master", f"{args.volume}%"], check=True)
 
     # Play Adhan
     if player == 'omxplayer':
         process = run([player, "-o", "alsa", args.uri, ">/dev/null 2>&1"], check=True)
     else:
-        play_command = ["sudo", player, args.uri] if SUDO else [player, args.uri]
-        process = run(play_command, check=True)
+        process = run([player, args.uri], check=True)
     return process.returncode
 
 
