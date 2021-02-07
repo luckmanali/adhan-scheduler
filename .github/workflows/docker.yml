@@ -16,14 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Login to Dockerhub image
+      - name: Login to Dockerhub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-
-      - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u ${{ github.actor }} --password-stdin
 
       - name: Build & push
         uses: docker/build-push-action@v1
