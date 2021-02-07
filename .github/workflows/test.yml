@@ -28,12 +28,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
 
-    - name: cache packages
-      uses: actions/cache@v1
-      with:
-          path: ~/.venv
-          key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
-
     - name: install dependencies
       run: |
         make install
