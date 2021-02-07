@@ -96,8 +96,8 @@ def play_local(args) -> int:
     if player == "":
         raise RuntimeError(f"{player} is not installed")
 
-    volume_command = ["sudo", "amixer", "-D", "pulse", "sset", "Master", f"{args.volume}%"] if SUDO \
-        else ["amixer", "-D", "pulse", "sset", "Master", f"{args.volume}%"]
+    volume_command = ["sudo", "amixer", "sset", "Master", f"{args.volume}%"] if SUDO \
+        else ["amixer", "sset", "Master", f"{args.volume}%"]
 
     # Set the target volume
     run(volume_command, check=True)

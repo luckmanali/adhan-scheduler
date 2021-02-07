@@ -50,6 +50,7 @@ jobs:
 
     - name: run tests
       run: |
+        echo "SUDO is set to ${{ SUDO }}"
         make test
         env:
-          SUDO: True
+          SUDO: TRUE
