@@ -17,16 +17,13 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: apt update
+    - name: update apt
       run: |
         sudo apt update
 
-    - name: install amixer
+    - name: install amixer & mplayer
       run: |
         sudo apt install alsa-utils
-
-    - name: install mplayer
-      run: |
         sudo apt install mplayer
 
     - name: upgrade pip and install poetry
@@ -52,4 +49,4 @@ jobs:
       run: |
         make test
         env:
-          SUDO: TRUE
+          SUDO: True
