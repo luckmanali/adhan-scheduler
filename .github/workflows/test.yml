@@ -32,7 +32,7 @@ jobs:
       run: |
         make install
     
-    - name: install amixer & ammplayer
+    - name: install amixer & mplayer
       run: |
         sudo apt install alsa-utils
         sudo apt install mplayer
@@ -44,3 +44,5 @@ jobs:
     - name: run tests
       run: |
         make test
+        env:
+          SUDO: True

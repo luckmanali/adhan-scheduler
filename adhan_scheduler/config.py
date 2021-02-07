@@ -1,6 +1,8 @@
 """
 Configuration for adhan-scheduler
 """
+from adhan_scheduler.environments import env_bool, ENV
+
 
 ADHANS = [
     # ADD YOUR ADHAN LINKS HERE ...
@@ -45,3 +47,7 @@ METHOD = 1
 # Index order: "Fajr, Zhuhr, Asr, Maghrib, Isha"
 # Example: OFFSET = [-45, 0, 4, 0, -29]
 OFFSET = None
+
+
+# If sudo is required by amixer and your cli player
+SUDO = env_bool(ENV['remote']['sudo'], False)
