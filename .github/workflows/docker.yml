@@ -10,7 +10,7 @@ on:
       - "!tests/*"
       - "!Makefile"
 jobs:
-  docker-build:
+  docker-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
