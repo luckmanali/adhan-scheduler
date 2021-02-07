@@ -1,14 +1,7 @@
 name: Docker
 on:
   pull_request:
-  push:
-    branches:
-    - master
-    paths:
-      - "*"
-      - "!README.md"
-      - "!tests/*"
-      - "!Makefile"
+
 jobs:
   docker-publish:
     runs-on: ubuntu-latest
@@ -23,4 +16,5 @@ jobs:
       - name: Push image
       - run: |
           IMAGE=${{ github.repository }}
+          docker tag adhan-scheduler $IMAGE
           docker push $IMAGE:latest
