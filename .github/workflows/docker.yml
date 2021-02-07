@@ -18,7 +18,7 @@ jobs:
 
       - name: Login to Dockerhub
         run: |
-          echo "${{ secrets.DOCKER_PASS }}" | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+          echo "${{ secrets.DOCKER_PASS }}" | docker login -u luckmanali --password-stdin
 
       - name: Build image
         run: |
@@ -27,5 +27,7 @@ jobs:
       - name: Push image
         run: |
           docker tag adhan-scheduler luckmanali/adhan-scheduler:latest
-          echo $(docker images) ends here
+
+      - name: Push image
+        run: |
           docker push luckmanali/adhan-scheduler:latest
