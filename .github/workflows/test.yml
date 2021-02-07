@@ -6,13 +6,8 @@ on:
     - master
 jobs:
   test:
-    name: ${{ matrix.lang }} tests on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        lang: [Python]
-        command: [brew install mplayer, apt install mplayer]
+    name: Python tests on ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -39,7 +34,7 @@ jobs:
     
     - name: install mplayer
       run: |
-        ${{ matrix.command }}
+        sudo apt install mplayer
 
     - name: check lint
       run: |
