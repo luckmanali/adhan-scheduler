@@ -4,6 +4,7 @@ to play the Adhan. Each cron job will be programmed to play the Adhan either thr
 Sonos speaker(s) or through a generic wired or Bluetooth speaker.
 
 ## Setup
+For Docker setup / instructions scroll to the bottom of this page.
 
 ### Requirements
 * [python3.8+](https://www.python.org/)
