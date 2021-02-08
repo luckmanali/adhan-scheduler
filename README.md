@@ -358,7 +358,7 @@ $ docker run -d --name=adhan -e SPEAKER=mplayer --device /dev/snd luckmanali/adh
 | ----------- |:------------------------------------------------------------------------------------:|:---------:|:---------:|
 | `SPEAKER`   | Name of the Sonos speaker OR if you want to use a generic speaker pass in mplayer    | `True`    |           |
 | `VOLUME`    | Adjust the volume level                                                              | `False`   | 60%       |
-| `SCHOOL`    | Adjust the volume level                                                              | `False`   | 1         |
+| `SCHOOL`    | Select the school you follow. 0 for Shafi and 1 for Hanafi.                          | `False`   | 1         |
 | `METHOD`    | Method to calculate the prayer times                                                 | `False`   | 1         |
 | `OFFSET`    | Offset the the prayer calculations to match your requirement | `False`   | 1         | `False`   | None      |
 
