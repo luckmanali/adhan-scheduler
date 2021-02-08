@@ -15,13 +15,13 @@ Sonos speaker(s) or through a generic wired or Bluetooth speaker.
 $ pip install .
 ```
 
-### Development install
+### Development setup
 ```bash
 $ make install
 ```
 
-### Windows users (coming soon)
-A docker images will be available soon [adhan-scheduler]().
+### Docker install
+You can find the docker image published on Dockerhub [adhan-scheduler](https://hub.docker.com/r/luckmanali/adhan-scheduler).
 
 ## Usage
 #### NOTE: You only need to run this program once. All future executions will be done automatically. 

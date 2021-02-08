@@ -28,5 +28,4 @@ RUN chmod +x adhan_scheduler/*.py
 # Install requirements
 RUN pip install .
 
-RUN cd adhan_scheduler
 CMD python ./adhan_scheduler/main.py ${SPEAKER} && cron && tail -f /var/log/cron.log
