@@ -11,6 +11,7 @@ WORKDIR "/var/automation/"
 # Install pre-requisites
 RUN apt update
 RUN apt install cron -y
+RUN apt install alsa-utils -y
 RUN apt install mplayer -y
 
 # Setup crontab

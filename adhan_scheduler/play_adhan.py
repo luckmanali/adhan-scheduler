@@ -128,7 +128,7 @@ def main():
         " Track: {args.uri}".format(args=args)
     )
 
-    if args.speaker in CLI_MEDIA_PLAYERS:
+    if args.speaker.lower() in CLI_MEDIA_PLAYERS:
         play_local(args)
         sys.exit(0)
 
