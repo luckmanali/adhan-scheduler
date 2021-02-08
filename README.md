@@ -318,24 +318,26 @@ from prayer_times import PrayerTimes
 api = PrayerTimes()  # get prayer times for current date and location
 await api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
 
+abs_path = Path(__file__).resolve()
+
 # set cronjob for all prayers
 scheduler = Scheduler(
     times=await api.get_times(),
-    command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {args.volume}'
+    command=f'python {abs_path.parent}/play_adhan.py {args.speaker} --volume {args.volume}'
 )
 
 # override cronjob for fajr prayer with the volume lowered to half
 scheduler.schedule_job(
     name='Fajr',
     time=scheduler.get_job('Fajr')['time'],
-    command=f'python {getcwd()}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
+    command=f'python {abs_path.parent}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
 )
 
 # Schedule this script to rerun everyday at midnight
 scheduler.schedule_job(
     name="Adhan Scheduler",
     time="00:00",
-    command=f"python {getcwd()}/main.py {args.speaker} --volume {int(args.volume)}'"
+    command=f"python {abs_path} {args.speaker} --volume {int(args.volume)}'"
 )
 ```
 
