@@ -20,31 +20,6 @@ $ pip install .
 $ make install
 ```
 
-## Docker
-You can find the docker image published on Dockerhub [adhan-scheduler](https://hub.docker.com/r/luckmanali/adhan-scheduler).
-
-### How to use this image
-#### Quick start using Sonos
-```bash
-$ docker run -d --name=adhan --network host -e SPEAKER=Mplayer luckmanali/adhan-scheduler
-```
-
-#### Quick start using generic wired or Bluetooth speaker
-```bash
-$ docker run -d --name=adhan -e SPEAKER=mplayer --device /dev/snd luckmanali/adhan-scheduler
-```
-
-### Docker environment variables
-| Variable    | Description                                                                          | Required  |  Default  |
-| ----------- |:------------------------------------------------------------------------------------:|:---------:|:---------:|
-| `SPEAKER`   | Name of the Sonos speaker OR if you want to use a generic speaker pass in mplayer    | `True`    |           |
-| `VOLUME`    | Adjust the volume level                                                              | `False`   | 60%       |
-| `SCHOOL`    | Adjust the volume level                                                              | `False`   | 1         |
-| `METHOD`    | Method to calculate the prayer times                                                 | `False`   | 1         |
-| `OFFSET`    | Offset the the prayer calculations to match your requirement | `False`   | 1         | `False`   | None      |
-
-#### NOTE: More details can be found in the config section further below. 
-
 ## Usage
 #### NOTE: You only need to run this program once. All future executions will be done automatically. 
 
@@ -363,8 +338,33 @@ scheduler.schedule_job(
 )
 ```
 
+## Docker
+You can find the docker image published on Dockerhub [adhan-scheduler](https://hub.docker.com/r/luckmanali/adhan-scheduler).
+
+### How to use this image
+#### Quick start using Sonos
+```bash
+$ docker run -d --name=adhan --network host -e SPEAKER=Mplayer luckmanali/adhan-scheduler
+```
+
+#### Quick start using generic wired or Bluetooth speaker
+```bash
+$ docker run -d --name=adhan -e SPEAKER=mplayer --device /dev/snd luckmanali/adhan-scheduler
+```
+
+### Docker environment variables
+| Variable    | Description                                                                          | Required  |  Default  |
+| ----------- |:------------------------------------------------------------------------------------:|:---------:|:---------:|
+| `SPEAKER`   | Name of the Sonos speaker OR if you want to use a generic speaker pass in mplayer    | `True`    |           |
+| `VOLUME`    | Adjust the volume level                                                              | `False`   | 60%       |
+| `SCHOOL`    | Adjust the volume level                                                              | `False`   | 1         |
+| `METHOD`    | Method to calculate the prayer times                                                 | `False`   | 1         |
+| `OFFSET`    | Offset the the prayer calculations to match your requirement | `False`   | 1         | `False`   | None      |
+
+#### NOTE: More details can be found in the config section mentioned further above. 
+
 ## TODO
-- [ ] Front end GUI
+- [ ] Frontend GUI
 - [ ] Create preconfigured Raspberry Pi image
 - [ ] Include WhatsApp notifications
 - [ ] Subscribe to a cloud service instead of using a local build (Sonos users only)
