@@ -3,6 +3,8 @@ FROM python:3.8-slim
 # Maintainers
 LABEL maintainer="Luckman Ali"
 
+ENV VOLUME 60
+
 # Create working directory
 RUN mkdir -p /var/automation/
 
@@ -29,4 +31,4 @@ RUN chmod +x adhan_scheduler/*.py
 # Install requirements
 RUN pip install .
 
-CMD python ./adhan_scheduler/main.py ${SPEAKER} && cron && tail -f /var/log/cron.log
+CMD python ./adhan_scheduler/main.py ${SPEAKER} --volume ${VOLUME} && cron && tail -f /var/log/cron.log
