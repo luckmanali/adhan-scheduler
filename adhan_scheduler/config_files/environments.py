@@ -36,5 +36,7 @@ ENV = {
         'school': get_env('SCHOOL'),
         'method': get_env('METHOD'),
         'offset': get_env('OFFSET'),
+        'reschedule_fajr': get_env('RESCHEDULE_FAJR'),
+        'mins_before_sunrise': get_env('MINS_BEFORE_SUNRISE'),
     }
 }

@@ -63,7 +63,7 @@ class Scheduler:
 
         job.setall(time)
         self.cron.write()
-        print(f'Cron job for {time.title()} created successfully')
+        print(f'Cron job for {name.title()} at {time} created successfully')
 
     def _schedule_all_jobs(self):
         for name, time in self.times.items():

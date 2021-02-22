@@ -27,6 +27,7 @@ import asyncio
 from argparse import ArgumentParser
 from scheduler import Scheduler
 from prayer_times import PrayerTimes
+from config_files.config import RESCHEDULE_FAJR, MINS_BEFORE_SUNRISE
 
 
 def parse_args():
@@ -57,7 +58,10 @@ async def main():
     args = parse_args()
 
     api = PrayerTimes()  # get prayer times for current date and location
-    await api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
+
+    if RESCHEDULE_FAJR:
+        # reset fajr prayer to 45 mins before sunrise
+        await api.set_fajr_x_mins_before_sunrise(minuets=MINS_BEFORE_SUNRISE)
 
     abs_path = Path(__file__).resolve()
 

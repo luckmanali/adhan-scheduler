@@ -1,7 +1,7 @@
 """
 Configuration for adhan-scheduler
 """
-from adhan_scheduler.config_files.environments import env_bool, env_int, ENV
+from adhan_scheduler.config_files.environments import ENV, env_int, env_str, env_bool
 
 
 ADHANS = [
@@ -46,4 +46,8 @@ METHOD = env_int(ENV['prayer_times']['method'], 1)
 # You can tune the results to match your local mosque using the OFFSET variable.
 # Index order: "Fajr, Zhuhr, Asr, Maghrib, Isha"
 # Example: OFFSET = [-45, 0, 4, 0, -29]
-OFFSET = env_bool(ENV['prayer_times']['offset'], None)
+OFFSET = env_str(ENV['prayer_times']['offset'], None)
+
+
+RESCHEDULE_FAJR = env_bool(ENV['prayer_times']['reschedule_fajr'], True)
+MINS_BEFORE_SUNRISE = env_int(ENV['prayer_times']['mins_before_sunrise'], 45)

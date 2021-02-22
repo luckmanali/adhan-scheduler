@@ -52,13 +52,14 @@ class PrayerTimes:
         # So we need to adjust this before continuing.
         tune[5] = 8
         if offset is not None:
+            offset = eval(offset) if isinstance(offset, str) else offset
+
             assert offset.__len__() == 5, \
                 "To offset the prayer times you need to pass in 1 value for each prayer " \
                 "e.g. [-30, 5, 10, 0, 0] will offset Fajr -30 mins, Duhr + 5 mins, Asr +10 mins. " \
                 "In this example the 0 values would make no change to Magrib and Isha"
             for index, value in zip([1, 3, 4, 5, 7], offset):
                 tune[index] = tune[index] + value
-
         return ','.join([str(x) for x in tune])
 
     async def _calculate_prayer_times(self):
