@@ -314,7 +314,10 @@ from scheduler import Scheduler
 from prayer_times import PrayerTimes
 
 api = PrayerTimes()  # get prayer times for current date and location
-await api.set_fajr_x_mins_before_sunrise(minuets=45)  # reset fajr prayer to 45 mins before sunrise
+
+if RESCHEDULE_FAJR:
+    # reset fajr prayer to 45 mins before sunrise
+    await api.set_fajr_x_mins_before_sunrise(minuets=MINS_BEFORE_SUNRISE)
 
 abs_path = Path(__file__).resolve()
 
@@ -360,7 +363,7 @@ $ docker run -d --name=adhan -e SPEAKER=mplayer --device /dev/snd luckmanali/adh
 | `VOLUME`    | Adjust the volume level                                                              | `False`   | 60%       |
 | `SCHOOL`    | Select the school you follow. 0 for Shafi and 1 for Hanafi.                          | `False`   | 1         |
 | `METHOD`    | Method to calculate the prayer times                                                 | `False`   | 1         |
-| `OFFSET`    | Offset the the prayer calculations to match your requirement | `False`   | 1         | `False`   | None      |
+| `OFFSET`    | Offset the the prayer calculations to match your requirement                         | `False`   | None      |
 
 #### NOTE: More details can be found in the config section mentioned further above. 
 
