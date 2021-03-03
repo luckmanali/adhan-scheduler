@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from ast import literal_eval
 from typing import List
 from aiohttp import ClientSession
 from adhan_scheduler.config_files import config
@@ -52,7 +53,7 @@ class PrayerTimes:
         # So we need to adjust this before continuing.
         tune[5] = 5
         if offset is not None:
-            offset = eval(offset) if isinstance(offset, str) else offset
+            offset = literal_eval(offset) if isinstance(offset, str) else offset
 
             assert offset.__len__() == 5, \
                 "To offset the prayer times you need to pass in 1 value for each prayer " \
