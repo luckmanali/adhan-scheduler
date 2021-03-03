@@ -10,8 +10,10 @@ class Scheduler:
         self.command = command
 
         self.cron = CronTab(user=True)
-        self._remove_all_jobs()  # Remove existing jobs (unrelated jobs will not be deleted)
-        self._schedule_all_jobs()
+
+        if times != {}:
+            self._remove_all_jobs()  # Remove existing jobs (unrelated jobs will not be deleted)
+            self._schedule_all_jobs()
 
     def __enter__(self):
         # For testing purposes

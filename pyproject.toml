@@ -9,6 +9,7 @@ python = "^3.8"
 soco = "^0.21.1"
 python-crontab = "^2.5.1"
 aiohttp = "^3.7.3"
+Flask = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

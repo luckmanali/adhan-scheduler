@@ -4,6 +4,7 @@ FROM python:3.8-slim
 LABEL maintainer="Luckman Ali"
 
 ENV VOLUME 60
+ENV FLASK_APP app.py
 
 # Create working directory
 RUN mkdir -p /var/automation/

@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Setup</title>
+        <link rel="stylesheet" href="/static/css/setup.css" />
+    </head>
+
+
+    <body>
+        <div class="setup">
+            <h1>Setup Adhan Scheduler</h1>
+            <h4>To get started please enter the name of your Sonos speaker below:</h4>
+
+            <form action="{{ url_for('process') }}" method='POST' name="SETUP">
+                <input type=text name="speaker" id="speaker"><BR>
+                <input type=submit value="Setup" class="button" id="button">
+                <label class="error">Error: Unable to find the Sonos speaker.</label>
+            </form>
+        </div>
+    </body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $('#button').click(function () {
+            // disabled the submit button
+            $(this).find('input[type="submit"]').attr('disabled','disabled');
+            localStorage.setItem('speaker', $("#speaker").val());
+
+            $.ajax({
+                type: 'POST',
+                url: '/process',
+                data: {speaker:$("#speaker").val()},
+                success: function (response) {
+                    $('.error').addClass("show");
+                }
+                error: function (response) {
+                    $('.error').addClass("show");
+                }
+            });
+        });
+    </script>
+</html>

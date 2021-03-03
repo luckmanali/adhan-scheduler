@@ -1,12 +1,13 @@
 """
 Configuration for adhan-scheduler
 """
-from adhan_scheduler.config_files.environments import ENV, env_int, env_str, env_bool
+from .environments import ENV, env_int, env_str, env_bool
 
 
 ADHANS = [
     # ADD YOUR ADHAN LINKS HERE ...
     "https://github.com/luckmanali/adhan-collection/blob/main/Masjid%20Al-Haram.mp3?raw=true",
+    "https://github.com/luckmanali/adhan-collection/blob/main/Dubai.mp3?raw=true"
 ]
 
 # Supported CLI Media Players
@@ -51,3 +52,4 @@ OFFSET = env_str(ENV['prayer_times']['offset'], None)
 
 RESCHEDULE_FAJR = env_bool(ENV['prayer_times']['reschedule_fajr'], True)
 MINS_BEFORE_SUNRISE = env_int(ENV['prayer_times']['mins_before_sunrise'], 45)
+ISHA_ONE_HOUR_AFTER_MAGHRIB = env_bool(ENV['prayer_times']['reschedule_isha'], False)

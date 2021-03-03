@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Scheduler</title>
+        <link rel="stylesheet" href="/static/css/main.css" />
+    </head>
+
+    <h1>Adhan Schdeuler</h1>
+    <h4>{{ today }}</h4>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {% for prayer in ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"] %}
+        <figure class="snip1533" id="{{ prayer }}">
+          <figcaption>
+              <i class="{{ icons[prayer] }}" style="font-size: 1.9em;"></i>
+              <h3>{{ prayer }}</h3>
+              <h4>{{ prayer_times[prayer] }}</h4>
+          </figcaption>
+        </figure>
+
+        <script>
+            {% if prayer in prayer_times.keys() %}
+                $("#{{ prayer }}").addClass("enabled")
+            {% else %}
+                $("#{{ prayer }}").addClass("disabled")
+            {% endif %}
+        </script>
+
+        <script>
+            $("#{{ prayer }}").click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/toggle',
+                    data: {prayer: "{{ prayer }}", speaker: localStorage.speaker},
+                    success: function () {
+                    location.reload();
+                    }
+                });
+            });
+        </script>
+    {% endfor %}
+
+</html>

@@ -1,0 +1,126 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300);
+button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+body {
+  background: #212121;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  background: #333;
+  color: #ccc;
+  width: 200px;
+  height: 60px;
+  border: 0;
+  font-size: 18px;
+  border-radius: 4px;
+  font-family: "Raleway", sans-serif;
+  transition: 0.6s;
+  overflow: hidden;
+}
+.button:focus {
+  outline: 0;
+}
+.button:before {
+  content: "";
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+  filter: blur(30px);
+  transform: translateX(-100px) skewX(-15deg);
+}
+.button:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  height: 100%;
+  left: 30px;
+  top: 0;
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100px) skewX(-15deg);
+}
+.button:hover {
+  background: #005963;
+  cursor: pointer;
+}
+.button:hover:before {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 0.6;
+  transition: 0.7s;
+}
+.button:hover:after {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 1;
+  transition: 0.7s;
+}
+
+.error {
+   display: none;
+   color: #630000;
+   text-align: center;
+   font-size: small;
+}
+
+.show {
+  display: block !important;
+}
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.2em;
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 40px 10px;
+  line-height: 1.65em;
+  color: #fff;
+  font-weight: 300;
+}
+
+h1 {
+  text-align: center;
+  margin: 5% 0 5% 0;
+}
+
+h4 {
+  text-align: center;
+}
+
+#speaker {
+  /*opacity: 0;*/
+  margin: 30px auto 0;
+  display: block;
+  width: 300px;
+  height: 40px;
+  font-size: 30px;
+  text-align: center;
+  background: #fff;
+  border-radius: 6px;
+  color: #black;
+  transition: 1s linear;
+}
+
+#button {
+  border: 0;
+  font-size: 20px;
+  padding: 1em 2em;
+  cursor: pointer;
+  margin: 0 auto 10px;
+  display: block;
+  text-align: center;
+  border-radius: 6px;
+  font-weight: bold;
+}

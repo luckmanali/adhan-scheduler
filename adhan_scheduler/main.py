@@ -27,7 +27,6 @@ import asyncio
 from argparse import ArgumentParser
 from scheduler import Scheduler
 from prayer_times import PrayerTimes
-from config_files.config import RESCHEDULE_FAJR, MINS_BEFORE_SUNRISE
 
 
 def parse_args():
@@ -59,23 +58,12 @@ async def main():
 
     api = PrayerTimes()  # get prayer times for current date and location
 
-    if RESCHEDULE_FAJR:
-        # reset fajr prayer to 45 mins before sunrise
-        await api.set_fajr_x_mins_before_sunrise(minuets=MINS_BEFORE_SUNRISE)
-
     abs_path = Path(__file__).resolve()
 
     # set cronjob for all prayers
     scheduler = Scheduler(
         times=await api.get_times(),
         command=f'python {abs_path.parent}/play_adhan.py {args.speaker} --volume {args.volume}'
-    )
-
-    # override cronjob for fajr prayer with the volume lowered to half
-    scheduler.schedule_job(
-        name='Fajr',
-        time=scheduler.get_job('Fajr')['time'],
-        command=f'python {abs_path.parent}/play_adhan.py {args.speaker} --volume {int(args.volume / 2)}'
     )
 
     # Schedule this script to rerun everyday at midnight
