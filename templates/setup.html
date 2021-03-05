@@ -2,6 +2,7 @@
     <head>
         <title>Setup</title>
         <link rel="stylesheet" href="/static/css/setup.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
 
 
@@ -12,30 +13,42 @@
 
             <form action="{{ url_for('process') }}" method='POST' name="SETUP">
                 <input type=text name="speaker" id="speaker"><BR>
+
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="60" class="slider" id="myRange" name="volume">
+                    <p>Volume: <span name="volume", id="volume"></span></p>
+                </div>
+
                 <input type=submit value="Setup" class="button" id="button">
                 <label class="error">Error: Unable to find the Sonos speaker.</label>
             </form>
         </div>
     </body>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("volume");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
+    </script>
 
     <script>
         $('#button').click(function () {
-            // disabled the submit button
-            $(this).find('input[type="submit"]').attr('disabled','disabled');
-            localStorage.setItem('speaker', $("#speaker").val());
+            let volume_level = $("#myRange").val();
+            let speaker_name = $("#speaker").val();
+            localStorage.setItem("volume", volume_level);
+            localStorage.setItem("speaker", speaker_name);
 
             $.ajax({
-                type: 'POST',
+                method: 'POST',
                 url: '/process',
-                data: {speaker:$("#speaker").val()},
-                success: function (response) {
-                    $('.error').addClass("show");
-                }
-                error: function (response) {
-                    $('.error').addClass("show");
-                }
+                dataType: 'json',
+                contentType: 'application/json',
+                traditional: true,
+                data: JSON.stringify(localStorage)
             });
         });
     </script>

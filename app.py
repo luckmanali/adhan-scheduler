@@ -13,7 +13,7 @@ abs_path = Path(__file__).resolve()
 CONFIG = {}
 
 
-def init(speaker: str, volume: int = 60):
+def _init(speaker: str, volume: int = 60):
     prayer_times = PrayerTimes()
     times = asyncio.run(prayer_times.get_times())
 
@@ -47,6 +47,7 @@ def index():
         job = scheduler.get_job(prayer)
         if job:
             _time = job['time'].split(' ')
+            _time[0] = (_time[0], f"0{_time[0]}")[len(_time[0]) == 1]
             time = f"{_time[1]}:{_time[0]}"
             prayer_times[job['name']] = time
             icons[job['name']] = icon
@@ -57,11 +58,12 @@ def index():
 @app.route('/process', methods=["POST"])
 def process():
     CONFIG['speaker'] = request.form["speaker"]
+    CONFIG['volume'] = request.form["volume"]
     try:
         get_zone(CONFIG['speaker'])
     except RuntimeError:
-        return jsonify(status=406, success=False, message="Sonos speaker not found")
-    init(CONFIG['speaker'])
+        return jsonify(status=406, success=False, message=f"Sonos speaker {CONFIG['speaker']} not found")
+    _init(CONFIG['speaker'], CONFIG['volume'])
     return redirect("/")
 
 
@@ -73,9 +75,9 @@ def setup():
 @app.route('/toggle', methods=['POST'])
 def toggle():
     try:
-        scheduler = Scheduler({}, f'python {abs_path.parent}/adhan_scheduler/play_adhan.py {CONFIG["speaker"]} --volume 60')
+        scheduler = Scheduler({}, f'python {abs_path.parent}/adhan_scheduler/play_adhan.py {CONFIG["speaker"]} --volume {CONFIG["volume"]}')
     except KeyError:
-        scheduler = Scheduler({}, f'python {abs_path.parent}/adhan_scheduler/play_adhan.py {request.form["speaker"]} --volume 60')
+        return render_template("setup.html")
 
     if scheduler.get_job(request.form['prayer']):
         scheduler.remove_job(request.form['prayer'])
