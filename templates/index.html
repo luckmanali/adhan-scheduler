@@ -18,13 +18,16 @@
           </figcaption>
         </figure>
 
-        <script>
-            {% if prayer in prayer_times.keys() %}
+        
+        {% if prayer in prayer_times.keys() %}
+            <script>
                 $("#{{ prayer }}").addClass("enabled")
-            {% else %}
+            </script>
+        {% else %}
+            <script>
                 $("#{{ prayer }}").addClass("disabled")
-            {% endif %}
-        </script>
+            </script>
+        {% endif %}
 
         <script>
             $("#{{ prayer }}").click(function () {
