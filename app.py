@@ -55,6 +55,12 @@ def index():
     return render_template("index.html", prayer_times=prayer_times, today=today, icons=icons)
 
 
+@app.route('/setup')
+def setup():
+    return render_template("setup.html")
+
+
+
 @app.route('/process', methods=["POST"])
 def process():
     CONFIG['speaker'] = request.form["speaker"]
@@ -65,12 +71,6 @@ def process():
         return jsonify(status=406, success=False, message=f"Sonos speaker {CONFIG['speaker']} not found")
     _init(CONFIG['speaker'], CONFIG['volume'])
     return redirect("/")
-
-
-@app.route('/setup')
-def setup():
-    return render_template("setup.html")
-
 
 @app.route('/toggle', methods=['POST'])
 def toggle():

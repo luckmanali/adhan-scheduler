@@ -103,16 +103,3 @@ h1 {
     font-weight: bold;
 }
 
-#draggable {
-  background: orange;
-  color: white;
-  width: 200px;
-  height: 200px;
-  line-height: 200px;
-  white-space: nowrap;
-  text-align: center;
-  cursor: move;
-  &:hover {
-    background: darken(orange, 5);
-  }
-}
