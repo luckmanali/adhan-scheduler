@@ -50,6 +50,6 @@ METHOD = env_int(ENV['prayer_times']['method'], 1)
 OFFSET = env_str(ENV['prayer_times']['offset'], None)
 
 
-RESCHEDULE_FAJR = env_bool(ENV['prayer_times']['reschedule_fajr'], True)
+RESCHEDULE_FAJR = env_bool(ENV['prayer_times']['reschedule_fajr'], False)
 MINS_BEFORE_SUNRISE = env_int(ENV['prayer_times']['mins_before_sunrise'], 45)
 ISHA_ONE_HOUR_AFTER_MAGHRIB = env_bool(ENV['prayer_times']['reschedule_isha'], False)

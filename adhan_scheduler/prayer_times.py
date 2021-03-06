@@ -86,14 +86,18 @@ class PrayerTimes:
         time = self._times[salah.title().strip()]
         return datetime.strptime(time, "%H:%M")
 
-    def set_isha_one_hour_after_magrib(self):
+    async def set_isha_one_hour_after_magrib(self):
         """Sets Isha time to 1 hour after Magrib time"""
+        if not self._times:
+            await self.calculate_prayer_times()
         hour = self._times['Maghrib'][:2]
         hour = int(hour) + 1
         self._times['Isha'] = f"{hour}{self._times['Maghrib'][2:]}"
 
-    def set_fajr_x_mins_before_sunrise(self, minuets: int = 45):
+    async def set_fajr_x_mins_before_sunrise(self, minuets: int = 45):
         """Set Fajr time to the sunrise time minus a given number of minuets. Default: 45 minuets before sunrise"""
+        if not self._times:
+            await self.calculate_prayer_times()
         sunrise = datetime.strptime(self.twilight['sunrise'], "%H:%M")
         adjusted_time = sunrise - timedelta(minutes=minuets)
         self._times['Fajr'] = adjusted_time.strftime("%H:%M")
