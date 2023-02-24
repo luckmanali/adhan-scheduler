@@ -24,7 +24,7 @@ from random import choice
 from subprocess import getoutput, run, CalledProcessError
 import sys
 import soco
-from adhan_scheduler.config_files.config import ADHANS, CLI_MEDIA_PLAYERS
+from config_files.config import ADHANS, CLI_MEDIA_PLAYERS
 
 
 def parse_args():
