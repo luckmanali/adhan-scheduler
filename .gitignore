@@ -43,3 +43,6 @@ setup.py
 *.tar.gz
 *.tgz
 *.zip
+
+# Cron
+cron-out.txt
