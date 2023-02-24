@@ -1,8 +1,8 @@
-from datetime import datetime, timedelta
-from ast import literal_eval
-from typing import List
-from aiohttp import ClientSession
-from adhan_scheduler.config_files import config
+from datetime import datetime, timedelta 
+from ast import literal_eval 
+from typing import List 
+from aiohttp import ClientSession 
+from config_files import config
 
 
 class PrayerTimes:
@@ -15,7 +15,7 @@ class PrayerTimes:
 
         self.current_date = datetime.now()
         self.base_uri = f"http://api.aladhan.com/v1/timings/{self.current_date.strftime('%d-%m-%Y')}"
-        self.loc = None
+        self.loc = {'lat': 53.81357, 'lon': -1.722604, 'city': 'bradford'}
         self.twilight = None
         self._times = None
 
@@ -27,16 +27,9 @@ class PrayerTimes:
 
     async def set_location(self):
         """Get your current location based on your ip address"""
-        async with ClientSession() as session:
-            async with session.get("https://api.letgo.com/api/iplookup.json") as resp:
-                if resp.status != 200:
-                    raise RuntimeError("Unable to get your current location.")
-                body = await resp.json()
-                self.loc = {'lat': body['latitude'], 'lon': body['longitude'], 'city': body['city']}
-
-                # Update parameters
-                self.params['latitude'] = self.loc['lat']
-                self.params['longitude'] = self.loc['lon']
+        # Update parameters
+        self.params['latitude'] = self.loc['lat']
+        self.params['longitude'] = self.loc['lon']
 
     @staticmethod
     def _tune_prayer_times(offset: list) -> str:
@@ -75,12 +68,10 @@ class PrayerTimes:
                 del self._times['Midnight']
                 self.twilight = {'sunrise': self._times.pop('Sunrise'), 'sunset': self._times.pop('Sunset')}
 
-                if config.RESCHEDULE_FAJR:
-                    # reset fajr prayer before sunrise (default is 45 mins)
-                    self.set_fajr_x_mins_before_sunrise(minuets=config.MINS_BEFORE_SUNRISE)
-
-                if config.ISHA_ONE_HOUR_AFTER_MAGHRIB:
-                    self.set_isha_one_hour_after_magrib()
+                # reset fajr prayer before sunrise (default is 45 mins)
+                await self.set_fajr_x_mins_before_sunrise(minuets=config.MINS_BEFORE_SUNRISE)
+		# Reschedule isha
+                await self.set_isha_one_hour_after_magrib()
 
     def convert_to_time_object(self, salah: str) -> datetime:
         time = self._times[salah.title().strip()]

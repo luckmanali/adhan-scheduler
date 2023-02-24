@@ -69,7 +69,8 @@ class Scheduler:
 
     def _schedule_all_jobs(self):
         for name, time in self.times.items():
-            self.schedule_job(name, time)
+            if name not in ["Firstthird", "Lastthird"]:
+                self.schedule_job(name, time)
 
     def get_job(self, name: str) -> dict or None:
         for job in self.cron.crons:

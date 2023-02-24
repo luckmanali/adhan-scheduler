@@ -1,7 +1,5 @@
-"""
-This program is designed to calculate prayer times and then schedule cron jobs
-to play the Adhan. Each cron job will be programmed to play the Adhan either through your
-Sonos speaker(s) or through a generic wired or Bluetooth speaker.
+""" This program is designed to calculate prayer times and then schedule cron jobs to play the Adhan. Each cron job will be programmed to play the Adhan 
+either through your Sonos speaker(s) or through a generic wired or Bluetooth speaker.
 
 Prerequisites (if you do not want to use Sonos speaker(s)):
 * A cli media player:
@@ -63,14 +61,14 @@ async def main():
     # set cronjob for all prayers
     scheduler = Scheduler(
         times=await api.get_times(),
-        command=f'python {abs_path.parent}/play_adhan.py {args.speaker} --volume {args.volume}'
+        command=f'python3 {abs_path.parent}/play_adhan.py {args.speaker} --volume {args.volume} >> cron-out.txt  2>&1'
     )
 
     # Schedule this script to rerun everyday at midnight
     scheduler.schedule_job(
         name="Adhan Scheduler",
         time="00:00",
-        command=f"python {abs_path} {args.speaker} --volume {int(args.volume)}'"
+        command=f"python3 {abs_path} {args.speaker} --volume {int(args.volume)}"
     )
 
 
